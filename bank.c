@@ -50,7 +50,7 @@ void witDra(struct Bank crAcct[],int index,int PIN,char AcctNum[1000],float with
             scanf("%d",&PIN);
             if(PIN==crAcct[i].PIN){
                printf("enter the amount to be withdrawn:");
-               scanf("%f\n",&withdrawl);
+               scanf("%f",&withdrawl);
                if(withdrawl<=crAcct[i].balance){
                 crAcct[i].balance = crAcct[i].balance-withdrawl;
                 printf("Transaction successful\n.The current balance in your accout is %f",crAcct[i].balance);
@@ -92,69 +92,82 @@ void checkBal(struct Bank crAcct[],int index,int PIN,char accountNumber[100]){
         printf("Account not found\n");
     }
 }
-void main(){
+int main(){
     int count,choice;
     int PIN;
     float deposit,withdrawl;
     char op;
     char accountNumber[100];
     struct Bank account[100];
-    printf("if you want to be a member of this business you need to register yourself by creating an account.\nAre you a member of this bank.\nYes or no??\n");
-scanf("%c",&op);
+    printf("if you want to be a member of this business you need to register yourself by creating an account.\nAre you a member of this bank.\n(Y/N)??\n");
+scanf("%s",&op);
 if(op=='y'){
-    printf("which option would you like to execute.\n1.Deposit an amount\n2.Withdraw an amount\n3.Check your balance\n");
-    scanf("%d",&choice);
-    if(choice==1){
-        printf("enter the account number:");
-        scanf("%s",accountNumber);
-    depo(account,count,PIN,accountNumber,deposit);
+    do{
+        printf("which option would you like to execute.\n1.Deposit an amount\n2.Withdraw an amount\n3.Check your balance\n");
+        scanf("%d",&choice);
+        switch(choice){
+            case 1:
+            printf("enter the account Number:");
+            scanf("%s",accountNumber);
+            depo(account,count,PIN,accountNumber,deposit);
+            break;
+
+            case 2:
+            printf("enter the account Number:");
+            scanf("%s",accountNumber);
+            witDra(account,count,PIN,accountNumber,withdrawl);
+            break;
+
+            case 3:
+            printf("enter the account Number:");
+            scanf("%s",accountNumber);
+            checkBal(account,count,PIN,accountNumber);
+            break;
+
+            case 4:printf("bye\n");
+            break;
+
+        }
     }
-    else if(choice==2){
-        printf("enter the account number:");
-        scanf("%s",accountNumber);
-     witDra(account,count,PIN,accountNumber,withdrawl);
-    }
-    else if(choice==3){
-    printf("enter the account number:");
-    scanf("%s",accountNumber);
-    checkBal(account,count,PIN,accountNumber);
-    }
-    else{
-        printf("invalid choice\n");
-    }
+    while(choice!=4);
+  
 }
 else if(op=='n'){
     printf("enter the count\n");
     scanf("%d",&count);
     createAccount(account,&count);
-
-    printf("which option would you like to execute.\n1.Deposit an amount\n2.Withdraw an amount\n3.Check your balance\n");
+    do{ 
+    printf("which option would you like to execute.\n1.Deposit an amount\n2.Withdraw an amount\n3.Check your balance\n4.exit\n");
     scanf("%d",&choice);
-    if(choice==1){
-        printf("enter the account number:");
-        scanf("%s",accountNumber);
-    depo(account,count,PIN,accountNumber,deposit);
+           switch(choice){
+            case 1:
+            printf("enter the account Number:");
+            scanf("%s",accountNumber);
+            depo(account,count,PIN,accountNumber,deposit);
+            break;
+
+            case 2:
+            printf("enter the account Number:");
+            scanf("%s",accountNumber);
+            witDra(account,count,PIN,accountNumber,withdrawl);
+            break;
+
+            case 3:
+            printf("enter the account Number:");
+            scanf("%s",accountNumber);
+            checkBal(account,count,PIN,accountNumber);
+            break;
+
+            case 4:printf("bye\n");
+            break;
     }
-    else if(choice==2){
-        printf("enter the account number:");
-        scanf("%s",accountNumber);
-     witDra(account,count,PIN,accountNumber,withdrawl);
-    }
-    else if(choice==3){
-    printf("enter the account number:");
-    scanf("%s",accountNumber);
-    checkBal(account,count,PIN,accountNumber);
-    }
-    else{
-        printf("invalid choice\n");
-    }
+
     
 }
-else{
-    printf("invalid option\n");
+while(choice!=4);
 }
-
-   
-
-
+else{
+printf("invalid option\n");
+}
+return 0;
 }
